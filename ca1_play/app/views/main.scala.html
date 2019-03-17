@@ -1,0 +1,158 @@
+@(pagename:String,user: models.users.User)(content:Html)
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta charset="UTF-8"/>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      <link rel="icon" type="image/png" href="@routes.Assets.versioned("images/images.png")">
+      <style>
+
+.center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+
+
+ body { background:#c2c2d6 }
+ .redtext { color: #0000e6; }
+
+        .navbar-default {
+  background-color: #ffad33;
+  border-color: #ffad33;
+}
+.navbar-default .navbar-brand {
+  color: #ffffff;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #0000e6;
+}
+.navbar-default .navbar-text {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #0000e6;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu {
+  background-color: #ffad33;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+  color: #0000e6;
+  background-color: #ffb84d;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li.divider {
+  background-color: #ffb84d;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+  color: #0000e6;
+  background-color: #ffb84d;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #0000e6;
+  background-color: #ffb84d;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #0000e6;
+  background-color: #ffb84d;
+}
+.navbar-default .navbar-toggle {
+  border-color: #ffb84d;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #ffb84d;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #ffffff;
+}
+.navbar-default .navbar-link {
+  color: #ffffff;
+}
+.navbar-default .navbar-link:hover {
+  color: #0000e6;
+}
+
+
+   
+    
+
+      </style>
+        <title>@pagename</title>
+        
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+          
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">Undead Realms</a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li @if(pagename == "Home"){class="active"}><a href="@routes.HomeController.index">Home</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="http://localhost:9000/onsale?cat=7">Action Adventure Game</a></li>
+                    <li><a href="http://localhost:9000/onsale?cat=6">Action Game</a></li>
+                    <li><a href="http://localhost:9000/onsale?cat=5">Adventure Game</a></li>
+                    <li><a href="http://localhost:9000/onsale?cat=3">First Person Shooter</a></li>
+                    <li><a href="http://localhost:9000/onsale?cat=2">Massively Multiplayer Online</a></li>
+                    <li><a href="http://localhost:9000/onsale?cat=4">Real-time Strategy</a></li>
+                    <li><a href="http://localhost:9000/onsale?cat=1">Role Playing Game</a></li>
+                  </ul>
+                  <li @if(pagename == "Catalog"){class="active"}><a href="@routes.HomeController.onsale(0)">Projects</a></li>
+               
+              </ul>
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li @if(pagename == "Register User"){class="active"}>
+                    @if((user != null) && ("admin".equals(user.getRole()))) {
+                 <a href="@routes.LoginController.registerUser"><span class="glyphicon glyphicon-server-cogwheel"></span> Register a new employee</a>                  
+                } else if((user != null) && ("customer".equals(user.getRole()))) {
+                    <a href="#"><span class="glyphicon glyphicon-user"></span> My Account</a>
+                }
+
+                
+                </li>
+                <li @if(pagename == "Login"){class="active"}>
+                @if(user != null) { 
+                  <a href="@routes.LoginController.logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+              } else {
+                <a href="@routes.LoginController.login()"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+              }
+              </li>
+
+                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+              </ul>
+            </div>
+          </nav>
+          </nav> 
+          <div class="container">
+                
+              @content
+            </div>
+    </body>
+</html>
